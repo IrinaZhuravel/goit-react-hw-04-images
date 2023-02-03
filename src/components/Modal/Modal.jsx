@@ -1,22 +1,16 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useEffect } from 'react';
 import styles from './Modal.module.css';
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleEscBtnClick);
-  }
+export const Modal = ({url, alt, closeModal}) => {
+  useEffect(() => {
+    window.addEventListener('keydown', closeModal);
+    
+    return () => {
+      window.removeEventListener('keydown', closeModal);
+    };
+  }, [closeModal]);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleEscBtnClick);
-  }
-
-  handleEscBtnClick = e => {
-    this.props.closeModal(e);
-  };
-
-  render() {
-    const { url, alt, closeModal } = this.props;
     return (
       <div className={styles.Overlay} onClick={e => closeModal(e)}>
         <div>
@@ -25,7 +19,7 @@ export class Modal extends Component {
       </div>
     );
   }
-}
+
 
 Modal.propTypes = {
   url: PropTypes.string.isRequired,
