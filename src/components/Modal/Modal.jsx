@@ -4,10 +4,15 @@ import styles from './Modal.module.css';
 
 export const Modal = ({url, alt, closeModal}) => {
   useEffect(() => {
-    window.addEventListener('keydown', closeModal);
+    const closeByEsc = ({code}) => {
+      if (code === 'Escape') {
+        closeModal();
+      }
+    }
+    window.addEventListener('keydown', closeByEsc);
     
     return () => {
-      window.removeEventListener('keydown', closeModal);
+      window.removeEventListener('keydown', closeByEsc);
     };
   }, [closeModal]);
 

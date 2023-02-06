@@ -45,10 +45,6 @@ export const App = () => {
       alert('You are entered same query');
       return;
     }
-
-    if (images.length > 0) {
-      setImages([]);
-    }
     setQuery(value);
     setPage(1);
   };
@@ -62,10 +58,8 @@ export const App = () => {
     setImageAlt(e.currentTarget.dataset.alt);
   };
 
-  const closeModal = e => {
-    if (e.target === e.currentTarget || e.key === 'Escape') {
-      setOriginalImageUrl('');
-    }
+  const closeModal = () => {
+    setOriginalImageUrl('');
   };
 
   const canLoadMore = images.length > 0 && page !== totalPages;
@@ -77,7 +71,9 @@ export const App = () => {
       {isLoading && <Loader />}
       {canLoadMore && <Button loadMode={handleBtnClick} />}
       {originalImageUrl && (
-        <Modal url={originalImageUrl} alt={ImageAlt} closeModal={closeModal} />
+        <Modal url={originalImageUrl} alt={ImageAlt} 
+        closeModal={closeModal}
+         />
       )}
     </Container>
   );
