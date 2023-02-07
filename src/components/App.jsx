@@ -47,6 +47,9 @@ export const App = () => {
     }
     setQuery(value);
     setPage(1);
+    setImages([]);
+    setOriginalImageUrl('');
+    setImageAlt('');
   };
 
   const handleBtnClick = () => {
